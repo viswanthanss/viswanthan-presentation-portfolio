@@ -1,0 +1,67 @@
+.before-mock {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #d9d8d2;
+  border-radius: 6px;
+  padding: clamp(16px, 3vw, 32px);
+  display: flex;
+  flex-direction: column;
+}
+
+.before-mock-title {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(13px, 1.6vw, 20px);
+  color: #1a1a1a;
+  margin-bottom: clamp(10px, 2vw, 20px);
+}
+
+.before-mock-body {
+  flex: 1;
+  display: flex;
+  gap: clamp(8px, 1.6vw, 16px);
+  align-items: stretch;
+}
+
+.before-card {
+  flex: 1;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  padding: clamp(8px, 1.4vw, 16px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #fafafa;
+}
+
+.before-card-value {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(14px, 2vw, 22px);
+  color: #444;
+}
+
+.before-card-label {
+  font-family: Arial, sans-serif;
+  font-size: clamp(9px, 1vw, 12px);
+  color: #777;
+  margin-top: 6px;
+}
+
+.before-arrow-step {
+  flex: 1;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: clamp(9px, 1.1vw, 13px);
+  color: #555;
+  background: #fafafa;
+  padding: 6px;
+}
