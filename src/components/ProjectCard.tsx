@@ -1,64 +1,106 @@
 import { Link } from "react-router-dom";
 import { Project } from "../data/projects";
+import PresentationSlide from "./PresentationSlide";
+import StatRow from "./charts/StatRow";
+import FlowRow from "./charts/FlowRow";
+import DualTrendTrack from "./charts/DualTrendTrack";
+import Matrix2x2 from "./charts/Matrix2x2";
+import { northstarTheme, growthTheme, orbitTheme } from "../theme";
 import "./ProjectCard.css";
 
 function CardPreview({ slug }: { slug: string }) {
   switch (slug) {
     case "pitch-deck":
       return (
-        <svg viewBox="0 0 320 180" className="preview-svg">
-          {["ERP", "CRM", "Support", "Finance"].map((n, i) => (
-            <g key={n}>
-              <rect x={16} y={20 + i * 34} width={60} height={20} rx={2} fill="none" stroke="#33332e" />
-              <text x={46} y={20 + i * 34 + 14} textAnchor="middle" className="pv-label">{n}</text>
-              <line x1={76} y1={20 + i * 34 + 10} x2={140} y2={90} stroke="#33332e" />
-            </g>
-          ))}
-          <rect x={140} y={70} width={80} height={40} rx={2} fill="#c6ff4a" opacity={0.14} stroke="#c6ff4a" />
-          <text x={180} y={94} textAnchor="middle" className="pv-label pv-accent">NORTHSTAR</text>
-          <line x1={220} y1={90} x2={280} y2={90} stroke="#c6ff4a" />
-          <rect x={280} y={72} width={30} height={36} rx={2} fill="none" stroke="#33332e" />
-        </svg>
+        <PresentationSlide
+          theme={northstarTheme}
+          variant="hero"
+          eyebrow="Northstar"
+          title="Operational data is everywhere. Decisions are still fragmented."
+        >
+          <FlowRow
+            label=""
+            columns={[
+              { label: "Sources", items: ["ERP · CRM"] },
+              { label: "Northstar", items: ["Normalize"], highlight: true },
+              { label: "Decisions", items: ["Alerts"] },
+            ]}
+          />
+        </PresentationSlide>
       );
     case "data-storytelling":
       return (
-        <svg viewBox="0 0 320 180" className="preview-svg">
-          <polyline points="20,150 60,140 100,128 140,110 180,86 220,54 260,30 300,14" fill="none" stroke="#33332e" strokeWidth={2} />
-          <polyline points="20,150 60,146 100,140 140,134 180,128 220,120 260,116 300,110" fill="none" stroke="#c6ff4a" strokeWidth={2.5} />
-        </svg>
+        <PresentationSlide theme={growthTheme} variant="chart" eyebrow="The Growth Engine"
+          title="Acquisition is accelerating. Retention rate is declining.">
+          <DualTrendTrack
+            label=""
+            firstCategory="Jan"
+            lastCategory="Dec"
+            tracks={[
+              {
+                title: "Acquisition index",
+                unit: "Indexed, Jan = 100",
+                categories: ["Jan", "Apr", "Jul", "Oct", "Dec"],
+                values: [100, 126, 164, 207, 243],
+                format: (v) => `${v}`,
+                color: growthTheme.accent!,
+              },
+              {
+                title: "90-day retention",
+                unit: "% of cohort",
+                categories: ["Jan", "Apr", "Jul", "Oct", "Dec"],
+                values: [74, 66, 58, 50, 45],
+                format: (v) => `${v}%`,
+                color: growthTheme.off!,
+              },
+            ]}
+          />
+        </PresentationSlide>
       );
     case "executive-one-pager":
       return (
-        <svg viewBox="0 0 320 180" className="preview-svg">
-          <rect x={20} y={16} width={280} height={148} fill="none" stroke="#33332e" />
-          <rect x={36} y={32} width={120} height={10} fill="#c6ff4a" opacity={0.6} />
-          {[0, 1, 2, 3].map((i) => (
-            <rect key={i} x={36} y={58 + i * 20} width={248 - i * 12} height={6} fill="#33332e" />
-          ))}
-        </svg>
+        <div className="onepager-preview" aria-hidden="true">
+          <div className="onepager-preview-rule" />
+          <p className="onepager-preview-headline">
+            Operational intelligence is becoming a decision-layer problem.
+          </p>
+          <div className="onepager-preview-lines">
+            <span style={{ width: "78%" }} />
+            <span style={{ width: "64%" }} />
+            <span style={{ width: "70%" }} />
+          </div>
+        </div>
       );
     case "strategy":
       return (
-        <svg viewBox="0 0 320 180" className="preview-svg">
-          <line x1={160} y1={20} x2={160} y2={160} stroke="#33332e" />
-          <line x1={30} y1={90} x2={290} y2={90} stroke="#33332e" />
-          <circle cx={215} cy={50} r={7} fill="#c6ff4a" />
-          <circle cx={110} cy={120} r={5} fill="#6b6b66" />
-          <circle cx={230} cy={130} r={5} fill="#6b6b66" />
-          <circle cx={80} cy={60} r={5} fill="#6b6b66" />
-        </svg>
+        <PresentationSlide theme={orbitTheme} variant="matrix" eyebrow="Orbit 2027"
+          title="The advantage is strongest where workflow complexity is highest.">
+          <Matrix2x2
+            label=""
+            xLabel="Market attractiveness"
+            yLabel="Right to win"
+            xLowHigh={["Low", "High"]}
+            yLowHigh={["Low", "High"]}
+            points={[
+              { label: "Core workflow", x: 78, y: 85, highlight: true },
+              { label: "Adjacent", x: 55, y: 50 },
+              { label: "New category", x: 30, y: 22 },
+            ]}
+          />
+        </PresentationSlide>
       );
     default:
       return (
-        <svg viewBox="0 0 320 180" className="preview-svg">
-          <rect x={20} y={20} width={130} height={140} fill="none" stroke="#33332e" />
-          <rect x={30} y={40} width={60} height={6} fill="#33332e" />
-          <rect x={30} y={56} width={90} height={6} fill="#33332e" />
-          <line x1={170} y1={90} x2={190} y2={90} stroke="#c6ff4a" markerEnd="url(#a)" />
-          <rect x={190} y={20} width={110} height={140} fill="none" stroke="#c6ff4a" />
-          <rect x={200} y={40} width={70} height={6} fill="#c6ff4a" />
-          <rect x={200} y={56} width={40} height={22} fill="#c6ff4a" opacity={0.5} />
-        </svg>
+        <PresentationSlide theme={northstarTheme} variant="metrics" eyebrow="Redesign study"
+          title="Four equal-weight metrics become one visual argument.">
+          <StatRow
+            label=""
+            stats={[
+              { value: "+31%", label: "Customer growth" },
+              { value: "−8 pts", label: "Retention" },
+            ]}
+          />
+        </PresentationSlide>
       );
   }
 }
@@ -66,8 +108,10 @@ function CardPreview({ slug }: { slug: string }) {
 export default function ProjectCard({ project }: { project: Project }) {
   return (
     <Link to={`/work/${project.slug}`} className="project-card" data-reveal>
-      <div className="project-card-preview">
-        <CardPreview slug={project.slug} />
+      <div className="project-card-preview" aria-hidden="true">
+        <div className="project-card-preview-scale">
+          <CardPreview slug={project.slug} />
+        </div>
       </div>
       <div className="project-card-body">
         <div className="project-card-meta">
